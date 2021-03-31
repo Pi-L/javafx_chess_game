@@ -1,75 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1119.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="case00" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case10" layoutX="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case20" layoutX="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case30" layoutX="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case40" layoutX="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case50" layoutX="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case60" layoutX="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case70" layoutX="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case01" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case11" layoutX="100.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case21" layoutX="200.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case31" layoutX="300.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case41" layoutX="400.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case51" layoutX="500.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case61" layoutX="600.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case71" layoutX="700.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case02" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case12" layoutX="100.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case22" layoutX="200.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case32" layoutX="300.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case42" layoutX="400.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case52" layoutX="500.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case62" layoutX="600.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case72" layoutX="700.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case03" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case13" layoutX="100.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case23" layoutX="200.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case33" layoutX="300.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case43" layoutX="400.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case53" layoutX="500.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case63" layoutX="600.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case73" layoutX="700.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case04" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case14" layoutX="100.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case24" layoutX="200.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case34" layoutX="300.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case44" layoutX="400.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case54" layoutX="500.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case64" layoutX="600.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case74" layoutX="700.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case05" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case15" layoutX="100.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case25" layoutX="200.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case35" layoutX="300.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case45" layoutX="400.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case55" layoutX="500.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case65" layoutX="600.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case75" layoutX="700.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case06" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case16" layoutX="100.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case26" layoutX="200.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case36" layoutX="300.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case46" layoutX="400.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case56" layoutX="500.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case66" layoutX="600.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case76" layoutX="700.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case07" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case17" layoutX="100.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case27" layoutX="200.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case37" layoutX="300.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case47" layoutX="400.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case57" layoutX="500.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case67" layoutX="600.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane fx:id="case77" layoutX="700.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222;" />
-      <Pane prefHeight="806.0" prefWidth="801.0" />
+      <Pane fx:id="chessBoard" prefHeight="806.0" prefWidth="801.0">
+         <children>
+            <Pane fx:id="case00" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case10" layoutX="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case20" layoutX="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case30" layoutX="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case40" layoutX="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case50" layoutX="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case60" layoutX="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case70" layoutX="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case01" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case11" layoutX="100.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case21" layoutX="200.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case31" layoutX="300.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case41" layoutX="400.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case51" layoutX="500.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case61" layoutX="600.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case71" layoutX="700.0" layoutY="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case02" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case12" layoutX="100.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case22" layoutX="200.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case32" layoutX="300.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case42" layoutX="400.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case52" layoutX="500.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case62" layoutX="600.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case72" layoutX="700.0" layoutY="200.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case03" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case13" layoutX="100.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case23" layoutX="200.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case33" layoutX="300.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case43" layoutX="400.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case53" layoutX="500.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case63" layoutX="600.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case73" layoutX="700.0" layoutY="300.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case04" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case14" layoutX="100.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case24" layoutX="200.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case34" layoutX="300.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case44" layoutX="400.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case54" layoutX="500.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case64" layoutX="600.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case74" layoutX="700.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case05" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case15" layoutX="100.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case25" layoutX="200.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case35" layoutX="300.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case45" layoutX="400.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case55" layoutX="500.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case65" layoutX="600.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case75" layoutX="700.0" layoutY="500.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case06" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case16" layoutX="100.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case26" layoutX="200.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case36" layoutX="300.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case46" layoutX="400.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case56" layoutX="500.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case66" layoutX="600.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case76" layoutX="700.0" layoutY="600.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case07" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case17" layoutX="100.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case27" layoutX="200.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case37" layoutX="300.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case47" layoutX="400.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case57" layoutX="500.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case67" layoutX="600.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+            <Pane fx:id="case77" layoutX="700.0" layoutY="700.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-border-color: #2f2f2f;" />
+         </children>
+      </Pane>
+      <Pane layoutX="813.0" layoutY="14.0" prefHeight="777.0" prefWidth="298.0">
+         <children>
+            <Label fx:id="currentPlayer" layoutX="146.0" layoutY="151.0" text="current player" />
+            <Label layoutX="59.0" layoutY="151.0" text="Au tour de :" />
+            <Label contentDisplay="CENTER" layoutX="63.0" layoutY="30.0" prefHeight="36.0" prefWidth="173.0" text="Super Duper Chess Game" textAlignment="CENTER" />
+            <Button layoutX="56.0" layoutY="638.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Annuler" />
+            <Button layoutX="56.0" layoutY="686.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Nouvelle partie" />
+            <Button layoutX="56.0" layoutY="735.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Quitter" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
