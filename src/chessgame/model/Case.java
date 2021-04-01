@@ -18,18 +18,6 @@ public class Case {
 
     }
 
-    // todo: move to plateau ? - shouldn't be here
-//    public boolean isBelongTo(String playerName) {
-//        if(playerName == null || piece == null) return false;
-//
-//        if(PlayerEnum.BLACK.getName().equals(playerName)) return PlayerEnum.BLACK.equals(piece.getPlayerEnum());
-//
-//        if(PlayerEnum.WHITE.getName().equals(playerName)) return PlayerEnum.WHITE.equals(piece.getPlayerEnum());
-//
-//        return false;
-//    }
-
-
     Piece getPiece() {
         return piece;
     }
@@ -55,11 +43,17 @@ public class Case {
         isSelectable = selectable;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
+    }
+
+    boolean isSamePlayer(Case pCase) {
+        if(piece == null || pCase.getPiece() == null) return false;
+
+        return piece.getPlayerEnum().equals(pCase.getPiece().getPlayerEnum());
     }
 }

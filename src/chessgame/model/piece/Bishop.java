@@ -1,6 +1,10 @@
 package chessgame.model.piece;
 
 import chessgame.utils.PlayerEnum;
+import chessgame.utils.Position;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bishop extends Piece {
 
@@ -8,4 +12,11 @@ public class Bishop extends Piece {
         super(playerEnum);
     }
 
+    @Override
+    public List<Position> getPossiblePositionList(Position position) {
+        List<Position> possiblePositionList = new ArrayList<>();
+
+
+        return possiblePositionList;
+    }
 }

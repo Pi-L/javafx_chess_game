@@ -5,6 +5,7 @@ import chessgame.model.Partie;
 import chessgame.model.piece.Piece;
 import chessgame.utils.Constants;
 import chessgame.utils.GameStatusEnum;
+import chessgame.utils.Position;
 import javafx.beans.DefaultProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -121,15 +122,16 @@ public class GameController implements Initializable {
         for (int i = 0; i < panes.length; i++) {
             for (int j = 0; j < panes[i].length; j++) {
 
+                Position position = new Position(i, j);
                 Pane currentPane = panes[i][j];
 
                 if((i + j) % 2 == 0) currentPane.setStyle(Constants.PANE_BG_EVEN_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
                 else currentPane.setStyle(Constants.PANE_BG_ODD_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
                 try {
-                    if(partie.isCaseSelected(i, j)) currentPane.setStyle(Constants.PANE_BG_SELECTED_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+                    if(partie.isCaseSelected(position)) currentPane.setStyle(Constants.PANE_BG_SELECTED_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
-                    if(partie.isCaseSelectable(i, j)) currentPane.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+                    if(partie.isCaseSelectable(position)) currentPane.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
                 } catch (IllegalArgumentException e) {
                     System.out.println("GameController -> refresh() : "+ e.toString());
@@ -137,7 +139,7 @@ public class GameController implements Initializable {
 
 
                 try {
-                    String imagePath = partie.getPieceImagePath(i, j);
+                    String imagePath = partie.getPieceImagePath(position);
 
                     ImageView imageView = new ImageView(imagePath);
                     imageView.setFitHeight(100);
@@ -192,10 +194,10 @@ public class GameController implements Initializable {
 
                     if(partie == null || !GameStatusEnum.STARTED.equals(partie.getGameStatusEnum())) return;
 
-                    Position pos = panePosition(currentPane);
+                    Position position = panePosition(currentPane);
 
                     try {
-                        partie.selectCase(pos.x, pos.y);
+                        partie.select(position);
                         refreshView();
 
                     } catch (IllegalArgumentException e) {
@@ -210,15 +212,10 @@ public class GameController implements Initializable {
         Position pos = new Position();
 
         String id = pane.getId();
-        pos.x = Integer.parseInt(id.substring(4,5));
-        pos.y = Integer.parseInt(id.substring(5,6));
+        pos.setX(Integer.parseInt(id.substring(4,5)));
+        pos.setY(Integer.parseInt(id.substring(5,6)));
 
         return pos;
-    }
-
-    private class Position {
-        private int x;
-        private int y;
     }
 
 }

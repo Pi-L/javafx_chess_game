@@ -3,9 +3,11 @@ package chessgame.model;
 import chessgame.model.piece.*;
 import chessgame.utils.Constants;
 import chessgame.utils.PlayerEnum;
+import chessgame.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Etat de la partie à un instant t
@@ -19,6 +21,7 @@ public class Plateau {
         initPlateau();
     }
 
+    // todo: why ?
     public Plateau(Plateau plateau) {
         this.caseArray = plateau.getCaseArray();
     }
@@ -30,6 +33,7 @@ public class Plateau {
     }
 
     /**
+     * todo: why ?
      * public car restart button
      * permet d'initialiser les pieces
      */
@@ -81,15 +85,15 @@ public class Plateau {
 
     }
 
-    Case getCase(int x, int y) throws IllegalArgumentException {
-        if(x < 0 || y < 0 || x > Constants.GRID_SIDE_SIZE - 1 || y > Constants.GRID_SIDE_SIZE - 1) throw new IllegalArgumentException();
+    Case getCase(Position position) throws IllegalArgumentException {
+        if(position.isOutOfBound()) throw new IllegalArgumentException();
 
-        return caseArray[x][y];
+        return caseArray[position.getX()][position.getY()];
     }
 
 
-    Piece getPiece(int x, int y) throws IllegalArgumentException {
-        Piece piece = getCase(x, y).getPiece();
+    Piece getPiece(Position position) throws IllegalArgumentException {
+        Piece piece = getCase(position).getPiece();
 
         if(piece == null) throw new IllegalArgumentException();
 
@@ -100,7 +104,31 @@ public class Plateau {
         return caseArray;
     }
 
-//    void removePiece(Case pCase) {
-//        caseArray[pCase.getX()][pCase.getY()].setPiece(null);
-//    }
+    /**
+     *
+     * @param pCase une case qui a une piece dessus
+     * @return une liste de case sur laquelle la piece de la case en parametre peut se deplacer
+     * @throws IllegalArgumentException si la case en parametre n'a pas de piece dessus
+     */
+    List<Case> getPossibleMoveList(Case pCase) throws IllegalArgumentException {
+
+        Piece currentPiece = pCase.getPiece();
+
+        if(currentPiece == null) throw new IllegalArgumentException();
+
+        Position casePosition = new Position(pCase.getX(), pCase.getY());
+        List<Case> caseList = new ArrayList<>();
+
+        List<Position> positionList = currentPiece.getPossiblePositionList(casePosition);
+
+        if(positionList.isEmpty()) return caseList;
+
+        caseList = positionList.stream()
+                        .filter(pos -> !pCase.isSamePlayer(caseArray[pos.getX()][pos.getY()]))
+                        .map(pos -> caseArray[pos.getX()][pos.getY()])
+                        .collect(Collectors.toList());
+
+        return caseList;
+    }
+
 }

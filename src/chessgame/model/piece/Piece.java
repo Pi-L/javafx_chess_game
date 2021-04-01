@@ -1,6 +1,9 @@
 package chessgame.model.piece;
 
 import chessgame.utils.PlayerEnum;
+import chessgame.utils.Position;
+
+import java.util.List;
 
 public abstract class Piece {
 
@@ -28,8 +31,11 @@ public abstract class Piece {
         return imagePath;
     }
 
-
     public PlayerEnum getPlayerEnum() {
         return playerEnum;
     }
+
+    public abstract List<Position> getPossiblePositionList(Position position);
+
+
 }

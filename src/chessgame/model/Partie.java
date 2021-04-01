@@ -3,6 +3,7 @@ package chessgame.model;
 import chessgame.model.piece.Piece;
 import chessgame.utils.GameStatusEnum;
 import chessgame.utils.PlayerEnum;
+import chessgame.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ public class Partie {
 
     private GameStatusEnum gameStatusEnum;
 
+    // utile le reset. Permet de ne pas tout parcourir
+    private List<Case> caseSelectableList;
 
 
     public Partie() {
@@ -32,13 +35,16 @@ public class Partie {
         deplacementList = new ArrayList<>();
         currentPlayer  = PlayerEnum.WHITE;
         gameStatusEnum = GameStatusEnum.STARTED;
+
+        cleanUpCaseSelectableList();
     }
 
     // only one needed
-    public void selectCase(int x, int y) throws IllegalArgumentException {
+    public void select(Position position) throws IllegalArgumentException {
+
         if(!gameStatusEnum.equals(GameStatusEnum.STARTED)) throw new IllegalArgumentException();
 
-        Case currentCase = plateau.getCase(x, y);
+        Case currentCase = plateau.getCase(position);
 
         boolean isSelectionPossible = isSelectionPossible(currentCase);
         boolean isMovePossible = isMovePossible(currentCase);
@@ -46,17 +52,7 @@ public class Partie {
         if(!isSelectionPossible && !isMovePossible) throw new IllegalArgumentException();
 
         if(isSelectionPossible) {
-            boolean isCurrentCaseSelected = currentCase.isSelected();
-
-            if(!isCurrentCaseSelected) {
-                Deplacement deplacement = new Deplacement();
-                deplacement.setStartCase(currentCase);
-                deplacementList.add(deplacement);
-            }
-
-            if(isCurrentCaseSelected) deplacementList.remove(deplacementList.size() - 1);
-
-            currentCase.setSelected(!isCurrentCaseSelected);
+            selectCase(currentCase);
             return;
         }
 
@@ -64,10 +60,10 @@ public class Partie {
         makeMove(currentCase);
     }
 
-    public String getPieceImagePath(int x, int y) throws IllegalArgumentException {
-        if(!gameStatusEnum.equals(GameStatusEnum.STARTED)) throw new IllegalArgumentException();
+    public String getPieceImagePath(Position position) throws IllegalArgumentException {
+        if(GameStatusEnum.IDLE.equals(gameStatusEnum)) throw new IllegalArgumentException();
 
-        Piece piece = plateau.getPiece(x, y);
+        Piece piece = plateau.getPiece(position);
         return piece.getImagePath();
     }
 
@@ -83,10 +79,11 @@ public class Partie {
 
         // si on annule le dernier deplacmeent alors qu'on a juste fait une selection, on deselectionne le pion,
         // sinon on change le joueur et on defait le deplacement
-           if(lastDeplacement.getStartCase() != null && lastDeplacement.getEndCase() == null) {
+       if(lastDeplacement.getStartCase() != null && lastDeplacement.getEndCase() == null) {
             lastDeplacement.getStartCase().setSelected(false);
+            cleanUpCaseSelectableList();
 
-        } else  {
+       } else  {
             togglePlayer();
             lastDeplacement.undo();
         }
@@ -95,15 +92,15 @@ public class Partie {
     }
 
     // valeur necessaire pour l'affichage de la surbrillance
-    public boolean isCaseSelected(int x, int y) throws IllegalArgumentException {
-        Case currentCase = plateau.getCase(x, y);
+    public boolean isCaseSelected(Position position) throws IllegalArgumentException {
+        Case currentCase = plateau.getCase(position);
 
         return currentCase.isSelected();
     }
 
     // valeur necessaire pour l'affichage de la surbrillance
-    public boolean isCaseSelectable(int x, int y) throws IllegalArgumentException {
-        Case currentCase = plateau.getCase(x, y);
+    public boolean isCaseSelectable(Position position) throws IllegalArgumentException {
+        Case currentCase = plateau.getCase(position);
 
         return currentCase.isSelectable();
     }
@@ -117,8 +114,30 @@ public class Partie {
         else currentPlayer = PlayerEnum.BLACK;
     }
 
+    private void selectCase(Case pCase) {
+        boolean isCurrentCaseSelected = pCase.isSelected();
+
+        if(!isCurrentCaseSelected) {
+            Deplacement deplacement = new Deplacement();
+            deplacement.setStartCase(pCase);
+            deplacementList.add(deplacement);
+
+            caseSelectableList = plateau.getPossibleMoveList(pCase);
+            caseSelectableList.forEach(aCase -> aCase.setSelectable(true));
+        }
+
+        if(isCurrentCaseSelected) {
+            deplacementList.remove(deplacementList.size() - 1);
+            cleanUpCaseSelectableList();
+        }
+
+        pCase.setSelected(!isCurrentCaseSelected);
+    }
+
     private void makeMove(Case pCase) {
         Deplacement lastDeplacement = deplacementList.get(deplacementList.size() - 1);
+
+        cleanUpCaseSelectableList();
 
         lastDeplacement.setEndCase(pCase);
 
@@ -167,10 +186,25 @@ public class Partie {
         // si on veut selectionner une case non vide et de notre couleur : return false
         if(currentPiece != null && currentPiece.getPlayerEnum().equals(currentPlayer)) return false;
 
+
+
         if(deplacementList != null && !deplacementList.isEmpty()) deplacement = deplacementList.get(deplacementList.size() - 1);
 
         if(deplacement == null || deplacement.getEndCase() != null || deplacement.getStartCase() == null) return false;
 
+        // test - todo: remove first if
+        if("King".equals(deplacement.getPiece().getClass().getSimpleName())) {
+            if(caseSelectableList == null || caseSelectableList.isEmpty() || !caseSelectableList.contains(pCase)) return false;
+        }
+
         return true;
     }
+
+    private void cleanUpCaseSelectableList() {
+        if(caseSelectableList == null) return;
+
+        caseSelectableList.forEach(aCase -> aCase.setSelectable(false));
+        caseSelectableList.clear();
+    }
+
 }
