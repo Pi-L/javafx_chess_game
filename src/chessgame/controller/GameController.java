@@ -68,6 +68,8 @@ public class GameController implements Initializable {
 
         initCasePanesEvents();
 
+        currentPlayer.textProperty().setValue(partie.getCurrentPlayer());
+
     }
 
     private void initPanes() {
@@ -110,6 +112,16 @@ public class GameController implements Initializable {
                 else currentPane.setStyle(Constants.PANE_BG_ODD_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
                 try {
+                    if(partie.isCaseSelected(i, j)) currentPane.setStyle(Constants.PANE_BG_SELECTED_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+
+                    if(partie.isCaseSelectable(i, j)) currentPane.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+
+                } catch (IllegalArgumentException e) {
+                    System.out.println("GameController -> refresh() : "+ e.toString());
+                }
+
+
+                try {
                     String imagePath = partie.getPieceImagePath(i, j);
 
                     ImageView imageView = new ImageView(imagePath);
@@ -131,9 +143,18 @@ public class GameController implements Initializable {
 
     private void initButtonsEvents() {
         buttonExit.setOnMouseClicked(event ->  System.exit(0));
+
         buttonRestart.setOnMouseClicked(event -> newGame());
 
-        buttonReset.setOnMouseClicked(event -> {});
+        buttonReset.setOnMouseClicked(event -> {
+            if(partie == null) return;
+
+            try {
+                partie.resetMove();
+                refresh();
+
+            } catch (Exception e) { }
+        });
     }
 
 
@@ -146,19 +167,17 @@ public class GameController implements Initializable {
 
                 currentPane.setOnMouseClicked(event -> {
 
-                    if (currentPane.getChildren().isEmpty()) return;
+                    if(partie == null || !partie.isGameStarted()) return;
 
                     Position pos = panePosition(currentPane);
 
-                    // todo: (for testing) - modify
-                    // if(selectedPiecePosition != null) return;
+                    try {
+                        partie.selectCase(pos.x, pos.y);
+                        refresh();
 
-                    // todo: (for testing) - modify
-//                    if(!cases[pos.x][pos.y].isBelongTo(partie.getCurrentPlayer())) return;
-//
-//                    panes[pos.x][pos.y].setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: #bb4444");
-
-
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Bad selection");
+                    }
                 });
             }
         }

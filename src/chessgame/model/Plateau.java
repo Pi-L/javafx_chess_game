@@ -86,6 +86,7 @@ public class Plateau {
         return caseArray[x][y];
     }
 
+
     Piece getPiece(int x, int y) throws IllegalArgumentException {
         Piece piece = getCase(x, y).getPiece();
 
@@ -97,4 +98,8 @@ public class Plateau {
     Case[][] getCaseArray() {
         return caseArray;
     }
+
+//    void removePiece(Case pCase) {
+//        caseArray[pCase.getX()][pCase.getY()].setPiece(null);
+//    }
 }

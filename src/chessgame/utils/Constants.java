@@ -14,7 +14,7 @@ public class Constants {
 
     public static final String PANE_BG_SELECTED_COLOR_STYLE = String.format(BACKGROUND_COLOR_STYLE, "#bb4444");
 
-    public static final String PANE_BG_SELECTABLE_COLOR_STYLE = String.format(BACKGROUND_COLOR_STYLE, "#bb4444");
+    public static final String PANE_BG_SELECTABLE_COLOR_STYLE = String.format(BACKGROUND_COLOR_STYLE, "#bb6666");
 
     public static final String PANE_BORDER_COLOR_STYLE = String.format(BORDER_COLOR_STYLE, "#2f2f2f");
 
