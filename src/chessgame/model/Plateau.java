@@ -5,39 +5,21 @@ import chessgame.utils.Constants;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Etat de la partie à un instant t
  */
 public class Plateau {
 
-    private Case[][] caseArray = new Case[Constants.GRID_SIDE_SIZE][Constants.GRID_SIDE_SIZE];
+    private final Case[][] caseArray = new Case[Constants.GRID_SIDE_SIZE][Constants.GRID_SIDE_SIZE];
 
 
     public Plateau() {
         initPlateau();
     }
 
-    // todo: why ?
-    public Plateau(Plateau plateau) {
-        this.caseArray = plateau.getCaseArray();
-    }
-
-    public List<Deplacement> deplacementsPossible(Piece piece) {
-        List<Deplacement> deplacementList = new ArrayList<>();
-
-        return deplacementList;
-    }
-
-    /**
-     * todo: why ?
-     * public car restart button
-     * permet d'initialiser les pieces
-     */
-    public void initPlateau() {
+    private void initPlateau() {
 
         for (int i = 0; i < Constants.GRID_SIDE_SIZE; i++) {
             for (int j = 0; j < Constants.GRID_SIDE_SIZE; j++) {
@@ -98,10 +80,6 @@ public class Plateau {
         if(piece == null) throw new IllegalArgumentException();
 
         return piece;
-    }
-
-    Case[][] getCaseArray() {
-        return caseArray;
     }
 
     /**
