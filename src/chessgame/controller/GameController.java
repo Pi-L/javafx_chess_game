@@ -4,6 +4,7 @@ import chessgame.model.Case;
 import chessgame.model.Partie;
 import chessgame.model.piece.Piece;
 import chessgame.utils.Constants;
+import chessgame.utils.GameStatusEnum;
 import javafx.beans.DefaultProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +40,9 @@ public class GameController implements Initializable {
     private AnchorPane anchorPaneMain;
 
     @FXML
+    private Label mainTitle;
+
+    @FXML
     private Pane case00, case10, case20, case30, case40, case50, case60, case70, case01,
                     case11, case21, case31, case41, case51, case61, case71,
                     case02, case12, case22, case32, case42, case52, case62, case72,
@@ -52,6 +58,9 @@ public class GameController implements Initializable {
     @FXML
     private Label currentPlayer;
 
+    @FXML
+    private Label endGame;
+
     private Pane[][] panes;
 
     private Partie partie;
@@ -62,13 +71,15 @@ public class GameController implements Initializable {
 
         partie = new Partie();
 
+        mainTitle.setFont(new Font(20.0));
+
         initPanes();
 
         initButtonsEvents();
 
         initCasePanesEvents();
 
-        currentPlayer.textProperty().setValue(partie.getCurrentPlayer());
+        currentPlayer.textProperty().setValue(partie.getCurrentPlayer().getName());
 
     }
 
@@ -98,11 +109,15 @@ public class GameController implements Initializable {
 
     private void newGame() {
         partie.newGame();
-        refresh();
+
+        endGame.setStyle("");
+        endGame.textProperty().setValue("");
+
+        refreshView();
     }
 
 
-    private void refresh() {
+    private void refreshView() {
         for (int i = 0; i < panes.length; i++) {
             for (int j = 0; j < panes[i].length; j++) {
 
@@ -138,7 +153,15 @@ public class GameController implements Initializable {
             }
         }
 
-        currentPlayer.textProperty().setValue(partie.getCurrentPlayer());
+        currentPlayer.textProperty().setValue(partie.getCurrentPlayer().getName());
+
+        if(GameStatusEnum.ENDED.equals(partie.getGameStatusEnum())) {
+            endGame.setTextFill(Color.web("#FFFFFF"));
+            endGame.setFont(new Font(17.0));
+            endGame.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+            endGame.textProperty().setValue("Partie Terminée \n"
+                                            +"Victoire : "+partie.getCurrentPlayer().getName() +" !!");
+        }
     }
 
     private void initButtonsEvents() {
@@ -147,11 +170,11 @@ public class GameController implements Initializable {
         buttonRestart.setOnMouseClicked(event -> newGame());
 
         buttonReset.setOnMouseClicked(event -> {
-            if(partie == null) return;
+            if(partie == null || !partie.getGameStatusEnum().equals(GameStatusEnum.STARTED)) return;
 
             try {
                 partie.resetMove();
-                refresh();
+                refreshView();
 
             } catch (Exception e) { }
         });
@@ -167,13 +190,13 @@ public class GameController implements Initializable {
 
                 currentPane.setOnMouseClicked(event -> {
 
-                    if(partie == null || !partie.isGameStarted()) return;
+                    if(partie == null || !GameStatusEnum.STARTED.equals(partie.getGameStatusEnum())) return;
 
                     Position pos = panePosition(currentPane);
 
                     try {
                         partie.selectCase(pos.x, pos.y);
-                        refresh();
+                        refreshView();
 
                     } catch (IllegalArgumentException e) {
                         System.out.println("Bad selection");

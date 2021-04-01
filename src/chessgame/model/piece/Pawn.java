@@ -1,7 +1,6 @@
 package chessgame.model.piece;
 
-import chessgame.model.PlayerEnum;
-import javafx.scene.image.Image;
+import chessgame.utils.PlayerEnum;
 
 public class Pawn extends Piece {
 

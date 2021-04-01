@@ -1,6 +1,7 @@
-package chessgame.model;
+package chessgame.utils;
 
 public enum PlayerEnum {
+    NONE("Demarrer un partie!"),
     BLACK("Noirs"),
     WHITE("Blancs");
 

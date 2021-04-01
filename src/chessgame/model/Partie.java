@@ -1,6 +1,8 @@
 package chessgame.model;
 
 import chessgame.model.piece.Piece;
+import chessgame.utils.GameStatusEnum;
+import chessgame.utils.PlayerEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +17,26 @@ public class Partie {
 
     private PlayerEnum currentPlayer;
 
-    boolean isGameStarted = false;
+    private GameStatusEnum gameStatusEnum;
+
 
 
     public Partie() {
         super();
+        gameStatusEnum = GameStatusEnum.IDLE;
+        currentPlayer = PlayerEnum.NONE;
     }
 
     public void newGame() {
         plateau = new Plateau();
         deplacementList = new ArrayList<>();
         currentPlayer  = PlayerEnum.WHITE;
-        isGameStarted = true;
+        gameStatusEnum = GameStatusEnum.STARTED;
     }
 
     // only one needed
     public void selectCase(int x, int y) throws IllegalArgumentException {
-        if(!isGameStarted) throw new IllegalArgumentException();
+        if(!gameStatusEnum.equals(GameStatusEnum.STARTED)) throw new IllegalArgumentException();
 
         Case currentCase = plateau.getCase(x, y);
 
@@ -60,21 +65,19 @@ public class Partie {
     }
 
     public String getPieceImagePath(int x, int y) throws IllegalArgumentException {
-        if(!isGameStarted) throw new IllegalArgumentException();
+        if(!gameStatusEnum.equals(GameStatusEnum.STARTED)) throw new IllegalArgumentException();
 
         Piece piece = plateau.getPiece(x, y);
         return piece.getImagePath();
     }
 
 
-    public String getCurrentPlayer() {
-        if(!isGameStarted) return "demarrer un partie!";
-
-        return currentPlayer.getName();
+    public PlayerEnum getCurrentPlayer() {
+       return currentPlayer;
     }
 
     public void resetMove() throws Exception {
-        if(!isGameStarted || deplacementList == null || deplacementList.isEmpty()) throw new Exception();
+        if(!gameStatusEnum.equals(GameStatusEnum.STARTED) || deplacementList == null || deplacementList.isEmpty()) throw new Exception();
 
         Deplacement lastDeplacement = deplacementList.get(deplacementList.size() - 1);
 
@@ -93,8 +96,6 @@ public class Partie {
 
     // valeur necessaire pour l'affichage de la surbrillance
     public boolean isCaseSelected(int x, int y) throws IllegalArgumentException {
-        if(!isGameStarted) throw new IllegalArgumentException();
-
         Case currentCase = plateau.getCase(x, y);
 
         return currentCase.isSelected();
@@ -102,15 +103,13 @@ public class Partie {
 
     // valeur necessaire pour l'affichage de la surbrillance
     public boolean isCaseSelectable(int x, int y) throws IllegalArgumentException {
-        if(!isGameStarted) throw new IllegalArgumentException();
-
         Case currentCase = plateau.getCase(x, y);
 
         return currentCase.isSelectable();
     }
 
-    public boolean isGameStarted() {
-        return isGameStarted;
+    public GameStatusEnum getGameStatusEnum() {
+        return gameStatusEnum;
     }
 
     private void togglePlayer() {
@@ -126,13 +125,20 @@ public class Partie {
         Case startCase = lastDeplacement.getStartCase();
         Case endCase = lastDeplacement.getEndCase();
 
-        if(endCase.getPiece() != null) lastDeplacement.setPieceCaptured(endCase.getPiece());
+        if(endCase.getPiece() != null) {
+            lastDeplacement.setPieceCaptured(endCase.getPiece());
+
+            if("King".equals(endCase.getPiece().getClass().getSimpleName())) {
+                gameStatusEnum = GameStatusEnum.ENDED;
+            }
+        }
+
 
         endCase.setPiece(lastDeplacement.getPiece());
         startCase.setSelected(false);
         startCase.setPiece(null);
 
-        togglePlayer();
+        if(GameStatusEnum.STARTED.equals(gameStatusEnum)) togglePlayer();
     }
 
     private boolean isSelectionPossible(Case pCase) {

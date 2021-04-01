@@ -2,6 +2,7 @@ package chessgame.model;
 
 import chessgame.model.piece.*;
 import chessgame.utils.Constants;
+import chessgame.utils.PlayerEnum;
 
 import java.util.ArrayList;
 import java.util.List;

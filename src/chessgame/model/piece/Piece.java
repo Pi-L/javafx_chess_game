@@ -1,8 +1,6 @@
 package chessgame.model.piece;
 
-import chessgame.model.PlayerEnum;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import chessgame.utils.PlayerEnum;
 
 public abstract class Piece {
 

@@ -463,9 +463,9 @@
       </Pane>
       <Pane layoutX="813.0" layoutY="14.0" prefHeight="777.0" prefWidth="298.0">
          <children>
-            <Label fx:id="currentPlayer" layoutX="146.0" layoutY="151.0" text="current player" />
-            <Label layoutX="59.0" layoutY="151.0" text="Au tour de :" />
-            <Label contentDisplay="CENTER" layoutX="63.0" layoutY="30.0" prefHeight="36.0" prefWidth="173.0" text="Super Duper Chess Game" textAlignment="CENTER" />
+            <Label fx:id="currentPlayer" layoutX="104.0" layoutY="156.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="181.0" text="current player" />
+            <Label layoutX="20.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="84.0" text="Au tour de :" />
+            <Label fx:id="mainTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="261.0" text="Super Duper Chess Game" textAlignment="CENTER" />
             <Button fx:id="buttonReset" layoutX="56.0" layoutY="638.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Annuler">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -481,6 +481,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Label fx:id="endGame" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="19.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="255.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
       </Pane>
    </children>
