@@ -56,8 +56,6 @@ public class Pawn extends Piece {
             }
         }
 
-        possibleCaseList.forEach(aCase -> System.out.println(aCase));
-
         return possibleCaseList;
     }
 }

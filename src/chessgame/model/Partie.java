@@ -186,8 +186,6 @@ public class Partie {
         // si on veut selectionner une case non vide et de notre couleur : return false
         if(currentPiece != null && currentPiece.getPlayerEnum().equals(currentPlayer)) return false;
 
-
-
         if(deplacementList != null && !deplacementList.isEmpty()) deplacement = deplacementList.get(deplacementList.size() - 1);
 
         if(deplacement == null || deplacement.getEndCase() != null || deplacement.getStartCase() == null) return false;

@@ -38,5 +38,25 @@ public abstract class Piece {
 
     public abstract List<Case> getPossibleCaseList(Case[][] cases, Position position);
 
+    protected void addLinearContinuousMove(Case[][] cases, PlayerEnum playerEnum, Position currPos, Position nextPosIncrement, List<Case> possibleCaseList) {
+        Position newPos = new Position(currPos.getX() + nextPosIncrement.getX(), currPos.getY() + nextPosIncrement.getY());
+
+        if(newPos.isOutOfBound()) return;
+
+        Case nextCase = cases[newPos.getX()][newPos.getY()];
+
+        // on quitte la recursion sans ajouter le mouvement si on tombe sur une piece de notre couleur
+        if(nextCase.getPiece() != null && playerEnum.equals(nextCase.getPiece().playerEnum)) return;
+
+        synchronized (this) {
+            possibleCaseList.add(nextCase);
+        }
+
+        // on quitte la recursion en ayant ajouter le mouvement si on tombe sur une piece de l'autre couleur
+        if(nextCase.getPiece() != null) return;
+
+        addLinearContinuousMove(cases, playerEnum, newPos, nextPosIncrement, possibleCaseList);
+    }
+
 
 }
