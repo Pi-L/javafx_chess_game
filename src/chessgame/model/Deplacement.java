@@ -1,5 +1,10 @@
 package chessgame.model;
 
+import chessgame.model.piece.Piece;
+
+/**
+ * Le Mouvement d'une piece d'une case à une autre
+ */
 public class Deplacement {
 
     private Case startCase;

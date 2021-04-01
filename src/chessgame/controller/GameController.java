@@ -1,4 +1,158 @@
 package chessgame.controller;
 
-public class GameController {
+import chessgame.model.Case;
+import chessgame.model.Partie;
+import chessgame.model.piece.Piece;
+import chessgame.utils.Constants;
+import javafx.beans.DefaultProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+/**
+ * Roles :
+ * - Initialisation et actualisation de l'affichage
+ * - Gestion des evenements
+ */
+public class GameController implements Initializable {
+
+    @FXML
+    private AnchorPane anchorPaneMain;
+
+    @FXML
+    private Pane case00, case10, case20, case30, case40, case50, case60, case70, case01,
+                    case11, case21, case31, case41, case51, case61, case71,
+                    case02, case12, case22, case32, case42, case52, case62, case72,
+                    case03, case13, case23, case33, case43, case53, case63, case73,
+                    case04, case14, case24, case34, case44, case54, case64, case74,
+                    case05, case15, case25, case35, case45, case55, case65, case75,
+                    case06, case16, case26, case36, case46, case56, case66, case76,
+                    case07, case17, case27, case37, case47, case57, case67, case77;
+
+    @FXML
+    private Button buttonReset, buttonRestart, buttonExit;
+
+    @FXML
+    private Label currentPlayer;
+
+
+    private Pane[][] panes;
+
+    private Case[][] cases;
+
+    private Partie partie;
+
+    private Position selectedPiecePosition;
+    private Position selectedPlayPosition;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        panes = new Pane[][] {
+                                {case00, case01, case02, case03, case04, case05, case06, case07},
+                                {case10, case11, case12, case13, case14, case15, case16, case17},
+                                {case20, case21, case22, case23, case24, case25, case26, case27},
+                                {case30, case31, case32, case33, case34, case35, case36, case37},
+                                {case40, case41, case42, case43, case44, case45, case46, case47},
+                                {case50, case51, case52, case53, case54, case55, case56, case57},
+                                {case60, case61, case62, case63, case64, case65, case66, case67},
+                                {case70, case71, case72, case73, case74, case75, case76, case77}
+                            };
+
+        initButtonsEvents();
+
+        initCasePanesEvents();
+
+        newGame();
+    }
+
+
+
+
+    private void newGame() {
+        partie = new Partie();
+        cases = partie.getPlateau().getCaseArray();
+        refresh();
+    }
+
+    private void refresh() {
+        for (int i = 0; i < panes.length; i++) {
+            for (int j = 0; j < panes[i].length; j++) {
+
+                Pane currentPane = panes[i][j];
+
+                Case currentCase = cases[i][j];
+
+                // todo: switch coloration to Constants and here
+                currentPane.setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: " + currentCase.getColor()+";");
+
+                Piece currentPiece = currentCase.getPiece();
+
+                if(currentPiece != null) {
+                    currentPane.getChildren().add(currentPiece.getImageView());
+                } else {
+                    currentPane.getChildren().clear();
+                }
+            }
+        }
+
+        currentPlayer.textProperty().setValue(partie.getCurrentPlayer());
+    }
+
+    private void initButtonsEvents() {
+        buttonExit.setOnMouseClicked(event ->  System.exit(0));
+        buttonRestart.setOnMouseClicked(event -> newGame());
+
+        buttonReset.setOnMouseClicked(event -> {});
+    }
+
+    private void initCasePanesEvents() {
+        for (int i = 0; i < panes.length; i++) {
+            for (int j = 0; j < panes[i].length; j++) {
+
+                Pane currentPane = panes[i][j];
+
+                currentPane.setOnMouseClicked(event -> {
+
+                    if (currentPane.getChildren().isEmpty()) return;
+
+                    Position pos = panePosition(currentPane);
+
+                    // todo: (for testing) - modify
+                    // if(selectedPiecePosition != null) return;
+
+                    // todo: (for testing) - modify
+                    if(!cases[pos.x][pos.y].isBelongTo(partie.getCurrentPlayer())) return;
+
+                    panes[pos.x][pos.y].setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: #bb4444");
+
+
+                });
+            }
+        }
+    }
+
+    private Position panePosition(Pane pane) {
+        Position pos = new Position();
+
+        String id = pane.getId();
+        pos.x = Integer.parseInt(id.substring(4,5));
+        pos.y = Integer.parseInt(id.substring(5,6));
+
+        return pos;
+    }
+
+    private class Position {
+        private int x;
+        private int y;
+    }
 }
