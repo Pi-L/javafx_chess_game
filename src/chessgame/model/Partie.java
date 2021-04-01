@@ -192,10 +192,8 @@ public class Partie {
 
         if(deplacement == null || deplacement.getEndCase() != null || deplacement.getStartCase() == null) return false;
 
-        // test - todo: remove first if
-        if("King".equals(deplacement.getPiece().getClass().getSimpleName())) {
-            if(caseSelectableList == null || caseSelectableList.isEmpty() || !caseSelectableList.contains(pCase)) return false;
-        }
+        if(caseSelectableList == null || caseSelectableList.isEmpty() || !caseSelectableList.contains(pCase)) return false;
+
 
         return true;
     }

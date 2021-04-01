@@ -1,6 +1,9 @@
 package chessgame.model;
 
 import chessgame.model.piece.Piece;
+import chessgame.utils.Position;
+
+import java.util.List;
 
 public class Case {
 
@@ -18,7 +21,7 @@ public class Case {
 
     }
 
-    Piece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
@@ -51,9 +54,10 @@ public class Case {
         return y;
     }
 
-    boolean isSamePlayer(Case pCase) {
+    public boolean isSamePlayer(Case pCase) {
         if(piece == null || pCase.getPiece() == null) return false;
 
         return piece.getPlayerEnum().equals(pCase.getPiece().getPlayerEnum());
     }
+
 }

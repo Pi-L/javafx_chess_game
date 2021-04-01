@@ -117,18 +117,11 @@ public class Plateau {
         if(currentPiece == null) throw new IllegalArgumentException();
 
         Position casePosition = new Position(pCase.getX(), pCase.getY());
-        List<Case> caseList = new ArrayList<>();
 
-        List<Position> positionList = currentPiece.getPossiblePositionList(casePosition);
+        return currentPiece.getPossibleCaseList(caseArray, casePosition);
 
-        if(positionList.isEmpty()) return caseList;
 
-        caseList = positionList.stream()
-                        .filter(pos -> !pCase.isSamePlayer(caseArray[pos.getX()][pos.getY()]))
-                        .map(pos -> caseArray[pos.getX()][pos.getY()])
-                        .collect(Collectors.toList());
 
-        return caseList;
     }
 
 }

@@ -1,5 +1,6 @@
 package chessgame.model.piece;
 
+import chessgame.model.Case;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
 
@@ -13,9 +14,10 @@ public class King extends Piece{
     }
 
     @Override
-    public List<Position> getPossiblePositionList(Position position) {
+    public List<Case> getPossibleCaseList(Case[][] cases, Position position) {
 
-        List<Position> tempPossiblePositionList = new ArrayList<>();
+        List<Position> possiblePositionList = new ArrayList<>();
+        Case currentCase = cases[position.getX()][position.getY()];
 
         for (int i = 0; i <= 1 ; i++) {
             for (int j = 0; j <=1 ; j++) {
@@ -27,13 +29,18 @@ public class King extends Piece{
                 Position tempPositionDiagUp = new Position(position.getX() + i, position.getY() - j);
                 Position tempPositionUp = new Position(position.getX() - i, position.getY() - j);
 
-                tempPossiblePositionList.add(tempPositionDiagDown);
-                tempPossiblePositionList.add(tempPositionDiagUp);
-                tempPossiblePositionList.add(tempPositionUp);
-                tempPossiblePositionList.add(tempPositionDown);
+                possiblePositionList.add(tempPositionDiagDown);
+                possiblePositionList.add(tempPositionDiagUp);
+                possiblePositionList.add(tempPositionUp);
+                possiblePositionList.add(tempPositionDown);
             }
         }
 
-        return tempPossiblePositionList.stream().distinct().filter(pos -> !pos.isOutOfBound()).collect(Collectors.toList());
+        List<Position> possiblePositionListFiltered = possiblePositionList.stream().distinct().filter(pos -> !pos.isOutOfBound()).collect(Collectors.toList());
+
+        return possiblePositionListFiltered.stream()
+                .filter(pos -> !currentCase.isSamePlayer(cases[pos.getX()][pos.getY()]))
+                .map(pos -> cases[pos.getX()][pos.getY()])
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package chessgame.model.piece;
 
+import chessgame.model.Case;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
 
@@ -35,7 +36,7 @@ public abstract class Piece {
         return playerEnum;
     }
 
-    public abstract List<Position> getPossiblePositionList(Position position);
+    public abstract List<Case> getPossibleCaseList(Case[][] cases, Position position);
 
 
 }

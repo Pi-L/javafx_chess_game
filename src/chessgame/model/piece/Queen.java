@@ -1,5 +1,6 @@
 package chessgame.model.piece;
 
+import chessgame.model.Case;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
 
@@ -14,10 +15,10 @@ public class Queen extends Piece {
     }
 
     @Override
-    public List<Position> getPossiblePositionList(Position position) {
-        List<Position> possiblePositionList = new ArrayList<>();
+    public List<Case> getPossibleCaseList(Case[][] cases, Position position) {
+        List<Case> possibleCaseList = new ArrayList<>();
 
 
-        return possiblePositionList;
+        return possibleCaseList;
     }
 }
