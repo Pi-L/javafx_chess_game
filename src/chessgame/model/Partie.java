@@ -1,5 +1,7 @@
 package chessgame.model;
 
+import chessgame.model.piece.Piece;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,24 @@ public class Partie {
 
 
     public Partie() {
+        super();
+    }
+
+    public void newGame() {
         plateau = new Plateau();
         deplacementList = new ArrayList<>();
         currentPlayer  = PlayerEnum.WHITE;
     }
+
+    public void selectPiece(int x, int y) throws IllegalArgumentException {
+        // plateau.!cases[x][y].isBelongTo(partie.getCurrentPlayer())
+    }
+
+    public String getPieceImagePath(int x, int y) throws IllegalArgumentException {
+        Piece piece = plateau.getPiece(x, y);
+        return piece.getImagePath();
+    }
+
 
     public void makeMove(int x1, int y1, int x2, int y2) {
 
@@ -33,6 +49,6 @@ public class Partie {
     }
 
     public Plateau getPlateau() {
-        return plateau;
+        return new Plateau(plateau);
     }
 }

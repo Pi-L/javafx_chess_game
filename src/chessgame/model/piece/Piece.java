@@ -9,7 +9,7 @@ public abstract class Piece {
     protected static final String IMAGE_BASE_PATH = "/resources/pieces/";
 
     protected final PlayerEnum playerEnum;
-    protected ImageView imageView;
+    protected String imagePath;
 
     // todo: donner son deplacement ?
 
@@ -18,22 +18,18 @@ public abstract class Piece {
         setImage();
     }
 
-    /**
-     * bad place ?
-     */
     protected void setImage() {
 
         String className = this.getClass().getSimpleName().toLowerCase();
         String colorName = playerEnum.name().toLowerCase();
 
-        imageView = new ImageView(IMAGE_BASE_PATH+colorName+"_"+className+".png");
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
+        imagePath = IMAGE_BASE_PATH+colorName+"_"+className+".png";
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public String getImagePath() {
+        return imagePath;
     }
+
 
     public PlayerEnum getPlayerEnum() {
         return playerEnum;

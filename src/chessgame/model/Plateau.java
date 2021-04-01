@@ -11,14 +11,15 @@ import java.util.List;
  */
 public class Plateau {
 
-    private final Case[][] caseArray = new Case[Constants.GRID_SIDE_SIZE][Constants.GRID_SIDE_SIZE];
+    private Case[][] caseArray = new Case[Constants.GRID_SIDE_SIZE][Constants.GRID_SIDE_SIZE];
 
-    // why ?
-//    private final Piece[] pieceBlancheList = { new Rook()};
-//    private final Piece[] pieceNoirList = new ArrayList<>();
 
     public Plateau() {
         initPlateau();
+    }
+
+    public Plateau(Plateau plateau) {
+        this.caseArray = plateau.getCaseArray();
     }
 
     public List<Deplacement> deplacementsPossible(Piece piece) {
@@ -79,7 +80,21 @@ public class Plateau {
 
     }
 
-    public Case[][] getCaseArray() {
+    Case getCase(int x, int y) throws IllegalArgumentException {
+        if(x < 0 || y < 0 || x > Constants.GRID_SIDE_SIZE - 1 || y > Constants.GRID_SIDE_SIZE - 1) throw new IllegalArgumentException();
+
+        return caseArray[x][y];
+    }
+
+    Piece getPiece(int x, int y) throws IllegalArgumentException {
+        Piece piece = getCase(x, y).getPiece();
+
+        if(piece == null) throw new IllegalArgumentException();
+
+        return piece;
+    }
+
+    Case[][] getCaseArray() {
         return caseArray;
     }
 }

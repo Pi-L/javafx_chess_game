@@ -7,17 +7,15 @@ public class Case {
     private final int coordinateX;
     private final int coordinateY;
 
-    private String color;
-
     private Piece piece;
 
     public Case(int coordinateX, int coordinateY) {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
 
-        setColor();
     }
 
+    // todo: move to plateau ? - shouldn't be here
     public boolean isBelongTo(String playerName) {
         if(playerName == null || piece == null) return false;
 
@@ -28,14 +26,6 @@ public class Case {
         return false;
     }
 
-    private void setColor() {
-        if((coordinateX + coordinateY) % 2 == 0) color = "#FFFFFF";
-        else color = "#E0E0E0";
-    }
-
-    public String getColor() {
-        return color;
-    }
 
     public Piece getPiece() {
         return piece;

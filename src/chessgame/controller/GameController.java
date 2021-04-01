@@ -21,6 +21,15 @@ import java.util.ResourceBundle;
  * Roles :
  * - Initialisation et actualisation de l'affichage
  * - Gestion des evenements
+ *
+ * doit avoir accès à :
+ *  - partie
+ *  - partie reset
+ *  - image path
+ *  - select piece
+ *  - select move
+ *  - coordinates possible moves
+ *  - undo move
  */
 public class GameController implements Initializable {
 
@@ -43,46 +52,53 @@ public class GameController implements Initializable {
     @FXML
     private Label currentPlayer;
 
-
     private Pane[][] panes;
 
-    private Case[][] cases;
-
     private Partie partie;
-
-    private Position selectedPiecePosition;
-    private Position selectedPlayPosition;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        panes = new Pane[][] {
-                                {case00, case01, case02, case03, case04, case05, case06, case07},
-                                {case10, case11, case12, case13, case14, case15, case16, case17},
-                                {case20, case21, case22, case23, case24, case25, case26, case27},
-                                {case30, case31, case32, case33, case34, case35, case36, case37},
-                                {case40, case41, case42, case43, case44, case45, case46, case47},
-                                {case50, case51, case52, case53, case54, case55, case56, case57},
-                                {case60, case61, case62, case63, case64, case65, case66, case67},
-                                {case70, case71, case72, case73, case74, case75, case76, case77}
-                            };
+        partie = new Partie();
+
+        initPanes();
 
         initButtonsEvents();
 
         initCasePanesEvents();
 
-        newGame();
     }
 
+    private void initPanes() {
+        panes = new Pane[][] {
+                {case00, case01, case02, case03, case04, case05, case06, case07},
+                {case10, case11, case12, case13, case14, case15, case16, case17},
+                {case20, case21, case22, case23, case24, case25, case26, case27},
+                {case30, case31, case32, case33, case34, case35, case36, case37},
+                {case40, case41, case42, case43, case44, case45, case46, case47},
+                {case50, case51, case52, case53, case54, case55, case56, case57},
+                {case60, case61, case62, case63, case64, case65, case66, case67},
+                {case70, case71, case72, case73, case74, case75, case76, case77}
+        };
 
+        // set initial pane color
+        for (int i = 0; i < panes.length; i++) {
+            for (int j = 0; j < panes[i].length; j++) {
 
+                Pane currentPane = panes[i][j];
+
+                if ((i + j) % 2 == 0) currentPane.setStyle(Constants.PANE_BG_EVEN_COLOR_STYLE + Constants.PANE_BORDER_COLOR_STYLE);
+                else currentPane.setStyle(Constants.PANE_BG_ODD_COLOR_STYLE + Constants.PANE_BORDER_COLOR_STYLE);
+            }
+        }
+    }
 
     private void newGame() {
-        partie = new Partie();
-        cases = partie.getPlateau().getCaseArray();
+        partie.newGame();
         refresh();
     }
+
 
     private void refresh() {
         for (int i = 0; i < panes.length; i++) {
@@ -90,16 +106,21 @@ public class GameController implements Initializable {
 
                 Pane currentPane = panes[i][j];
 
-                Case currentCase = cases[i][j];
+                if((i + j) % 2 == 0) currentPane.setStyle(Constants.PANE_BG_EVEN_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+                else currentPane.setStyle(Constants.PANE_BG_ODD_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
-                // todo: switch coloration to Constants and here
-                currentPane.setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: " + currentCase.getColor()+";");
+                try {
+                    String imagePath = partie.getPieceImagePath(i, j);
 
-                Piece currentPiece = currentCase.getPiece();
+                    ImageView imageView = new ImageView(imagePath);
+                    imageView.setFitHeight(100);
+                    imageView.setFitWidth(100);
 
-                if(currentPiece != null) {
-                    currentPane.getChildren().add(currentPiece.getImageView());
-                } else {
+                    currentPane.getChildren().clear();
+
+                    currentPane.getChildren().add(imageView);
+
+                } catch(IllegalArgumentException e) {
                     currentPane.getChildren().clear();
                 }
             }
@@ -114,6 +135,8 @@ public class GameController implements Initializable {
 
         buttonReset.setOnMouseClicked(event -> {});
     }
+
+
 
     private void initCasePanesEvents() {
         for (int i = 0; i < panes.length; i++) {
@@ -131,9 +154,9 @@ public class GameController implements Initializable {
                     // if(selectedPiecePosition != null) return;
 
                     // todo: (for testing) - modify
-                    if(!cases[pos.x][pos.y].isBelongTo(partie.getCurrentPlayer())) return;
-
-                    panes[pos.x][pos.y].setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: #bb4444");
+//                    if(!cases[pos.x][pos.y].isBelongTo(partie.getCurrentPlayer())) return;
+//
+//                    panes[pos.x][pos.y].setStyle(Constants.PANE_BORDER_STYLE + "-fx-background-color: #bb4444");
 
 
                 });
@@ -155,4 +178,5 @@ public class GameController implements Initializable {
         private int x;
         private int y;
     }
+
 }
