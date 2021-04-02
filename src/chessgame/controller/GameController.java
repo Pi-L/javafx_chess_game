@@ -89,6 +89,9 @@ public class GameController implements Initializable {
 
     private void initPanes() {
 
+        // idee Leonie - pour ne pas avoir a constituer le tableau manuellement:
+       // this.getClass().getDeclaredField("fieldName");
+
         // on met tous les Pane dans un tableau correspondant à celui dans la classe Plateau
         panes = new Pane[][] {
                 {case00, case01, case02, case03, case04, case05, case06, case07},
