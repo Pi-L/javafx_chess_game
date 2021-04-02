@@ -1,5 +1,6 @@
 package chessgame.model;
 
+import chessgame.model.piece.King;
 import chessgame.model.piece.Piece;
 import chessgame.utils.GameStatusEnum;
 import chessgame.utils.PlayerEnum;
@@ -147,9 +148,7 @@ public class Partie {
         if(endCase.getPiece() != null) {
             lastDeplacement.setPieceCaptured(endCase.getPiece());
 
-            if("King".equals(endCase.getPiece().getClass().getSimpleName())) {
-                gameStatusEnum = GameStatusEnum.ENDED;
-            }
+            if(endCase.getPiece() instanceof King) gameStatusEnum = GameStatusEnum.ENDED;
         }
 
 
