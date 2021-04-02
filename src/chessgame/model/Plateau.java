@@ -200,6 +200,7 @@ public class Plateau {
         playerCaseList.forEach(currCase -> {
             Piece currentPiece = currCase.getPiece();
 
+            // on utilise la methode de la piece et non celle de plateau pour eviter une violante recursion :)
             List<Case> moveList = currentPiece.getPossibleCaseList(caseArray, new Position(currCase.getX(), currCase.getY()));
             if(moveList.isEmpty()) return;
             if(moveList.contains(oppositKingCase)) checkingPieceCaseList.add(currCase);

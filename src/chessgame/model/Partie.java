@@ -85,6 +85,12 @@ public class Partie {
         if(GameStatusEnum.STARTED.equals(gameStatusEnum)) togglePlayer();
         setIsCurrentPlayerKingChecked();
         System.out.println(currentPlayer+ "  " +isCurrentPlayerKingChecked);
+
+        if(isCurrentPlayerKingChecked) {
+            List<Case> caseListCurrentPlayer = plateau.getPlayerCases(currentPlayer);
+            long movebleCaseLeft = caseListCurrentPlayer.stream().filter(aCase -> !plateau.getPossibleMoveList(aCase).isEmpty()).count();
+            if(movebleCaseLeft == 0.0) gameStatusEnum = GameStatusEnum.ENDED;
+        }
     }
 
     /**
@@ -123,6 +129,8 @@ public class Partie {
        } else  {
             togglePlayer();
             lastDeplacement.undo();
+            // todo: verifier si ok
+            isCurrentPlayerKingChecked = false;
         }
 
         deplacementList.remove(lastDeplacement);
@@ -212,7 +220,7 @@ public class Partie {
         if(endCase.getPiece() != null) {
             lastDeplacement.setPieceCaptured(endCase.getPiece());
 
-            if(endCase.getPiece() instanceof King) gameStatusEnum = GameStatusEnum.ENDED;
+//            if(endCase.getPiece() instanceof King) gameStatusEnum = GameStatusEnum.ENDED;
         }
 
 
