@@ -3,6 +3,7 @@ package chessgame.model.piece;
 import chessgame.model.Case;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,36 +20,33 @@ public class Queen extends Piece {
         List<Case> possibleCaseList = new ArrayList<>();
         PlayerEnum playerEnum = cases[position.getX()][position.getY()].getPiece().playerEnum;
 
-        Thread thread0 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(1, 1), possibleCaseList));
-        Thread thread1 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(-1, -1), possibleCaseList));
-        Thread thread2 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(-1, 1), possibleCaseList));
-        Thread thread3 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(1, -1), possibleCaseList));
-        Thread thread4 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(0, 1), possibleCaseList));
-        Thread thread5 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(0, -1), possibleCaseList));
-        Thread thread6 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(1, 0), possibleCaseList));
-        Thread thread7 = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, new Position(-1, 0), possibleCaseList));
+        // tableau des increments de position possibles pour la reine
+        Position[] positionsIncrements = new Position[] {
+                                                    new Position(1, 1),
+                                                    new Position(-1, -1),
+                                                    new Position(-1, 1),
+                                                    new Position(1, -1),
+                                                    new Position(0, 1),
+                                                    new Position(0, -1),
+                                                    new Position(1, 0),
+                                                    new Position(-1, 0)
+                                                };
 
-        thread0.start();
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
-        thread6.start();
-        thread7.start();
+        Thread[] threads = new Thread[positionsIncrements.length];
 
-        try {
-            thread0.join();
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
-            thread6.join();
-            thread7.join();
+        // on lance chacune de 8 recursions dans un thread different
+        for (int i = 0; i < positionsIncrements.length; i++) {
 
-        } catch (InterruptedException e) {
-            System.out.println("getPossibleCaseList -> thread interrupted");
+            Position curPosIncrement = positionsIncrements[i];
+            threads[i] = new Thread(() -> addLinearContinuousMove(cases, playerEnum, position, curPosIncrement, possibleCaseList));
+            threads[i].start();
+
+            try{
+                // on attend que tous les Threads soient terminées pour continuer
+                threads[i].join();
+            } catch (InterruptedException e) {
+                System.out.println("getPossibleCaseList -> thread interrupted");
+            }
         }
 
         return possibleCaseList;

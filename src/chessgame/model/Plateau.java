@@ -100,10 +100,12 @@ public class Plateau {
      *
      * @param position La classe Position contient 2 entiers, un pour l'axe des x et un pour l'axe des y
      * @return une piece
-     * @throws IllegalArgumentException exception lancée par getCase(Position pos) si la case est située en dehors du plateau
+     * @throws IllegalArgumentException exception lancée par getCase(Position pos) si la case est située en dehors du plateau ou si la case n'a pas de piece. Cette derniere levée d'exception est utilisée par le controller quand il essaie de recuperer l'image avec Partie.getPieceImagePath()
      */
     Piece getPiece(Position position) throws IllegalArgumentException {
         Piece piece = getCase(position).getPiece();
+
+        if(piece == null) throw new IllegalArgumentException();
 
         return piece;
     }
