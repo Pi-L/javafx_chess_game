@@ -84,7 +84,6 @@ public class Partie {
 
         if(GameStatusEnum.STARTED.equals(gameStatusEnum)) togglePlayer();
         setIsCurrentPlayerKingChecked();
-        System.out.println(currentPlayer+ "  " +isCurrentPlayerKingChecked);
 
         if(isCurrentPlayerKingChecked) {
             List<Case> caseListCurrentPlayer = plateau.getPlayerCases(currentPlayer);

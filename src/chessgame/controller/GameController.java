@@ -167,7 +167,6 @@ public class GameController implements Initializable {
             }
         }
 
-        // todo: why does it work ??
         currentPlayer.textProperty().setValue(partie.getCurrentPlayer().getName());
 
         boolean isGameOver = GameStatusEnum.ENDED.equals(partie.getGameStatusEnum());
@@ -190,7 +189,7 @@ public class GameController implements Initializable {
             endGame.setFont(new Font(17.0));
             endGame.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
             endGame.textProperty().setValue("Partie Terminée \n"
-                                            +"Victoire : "+partie.getCurrentPlayer().getName() +" !!");
+                                            +"Victoire : "+partie.getCurrentPlayer().getOpposit().getName() +" !!");
 
             labelIsChecked.textProperty().setValue("Echec et Mat !");
         }
