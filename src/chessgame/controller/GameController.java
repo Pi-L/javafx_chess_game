@@ -85,6 +85,8 @@ public class GameController implements Initializable {
     }
 
     private void initPanes() {
+
+        // on met tous les Pane dans un tableau correspondant à celui dans la classe Plateau
         panes = new Pane[][] {
                 {case00, case01, case02, case03, case04, case05, case06, case07},
                 {case10, case11, case12, case13, case14, case15, case16, case17},
@@ -117,7 +119,10 @@ public class GameController implements Initializable {
         refreshView();
     }
 
-
+    /**
+     * <p>Actualisation de la vue</p>
+     * <p>On reparcours toutes les cases à chaque fois pour recuperer leur état</p>
+     */
     private void refreshView() {
         for (int i = 0; i < panes.length; i++) {
             for (int j = 0; j < panes[i].length; j++) {
@@ -125,9 +130,12 @@ public class GameController implements Initializable {
                 Position position = new Position(i, j);
                 Pane currentPane = panes[i][j];
 
+                // on initialise la couleur du bg de chaque case (le damier)
                 if((i + j) % 2 == 0) currentPane.setStyle(Constants.PANE_BG_EVEN_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
                 else currentPane.setStyle(Constants.PANE_BG_ODD_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
+                // Re-initialisation de la couleur de bg en fonction des cas particulier selectionnable / selectionné
+                // todo: refacto/opti
                 try {
                     if(partie.isCaseSelected(position)) currentPane.setStyle(Constants.PANE_BG_SELECTED_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
 
@@ -137,7 +145,7 @@ public class GameController implements Initializable {
                     System.out.println("GameController -> refresh() : "+ e.toString());
                 }
 
-
+                // s'il y a un piece sur la case, on peut recuperer son image
                 try {
                     String imagePath = partie.getPieceImagePath(position);
 
@@ -150,6 +158,7 @@ public class GameController implements Initializable {
                     currentPane.getChildren().add(imageView);
 
                 } catch(IllegalArgumentException e) {
+                    // sinon une exception est levée et on peut supprimer les images "enfant" presente sur la case
                     currentPane.getChildren().clear();
                 }
             }
@@ -166,6 +175,9 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     * Initialisation de l'evenement "click" sur chaque bouton
+     */
     private void initButtonsEvents() {
         buttonExit.setOnMouseClicked(event ->  System.exit(0));
 
@@ -182,8 +194,9 @@ public class GameController implements Initializable {
         });
     }
 
-
-
+    /**
+     * <p>initialisation de l'evenement click sur chaque case du tableau</p>
+     */
     private void initCasePanesEvents() {
         for (int i = 0; i < panes.length; i++) {
             for (int j = 0; j < panes[i].length; j++) {
@@ -208,6 +221,11 @@ public class GameController implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param pane
+     * @return la position d'un pane dans la grille en fonction de son nom
+     */
     private Position panePosition(Pane pane) {
         Position pos = new Position();
 
