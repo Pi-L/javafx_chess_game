@@ -100,14 +100,16 @@ public abstract class Piece {
     }
 
     /**
-     * Methode non recursive appelant la methode recursive addLinearContinuousMove()
-     * @param cases
-     * @param playerEnum
-     * @param currPos
-     * @param positionsIncrements
-     * @param possibleCaseList
+     * <p>Methode non recursive appelant la methode recursive addLinearContinuousMove()</p>
+     * <p>Cette methode est utilisée pour les pieces qui ont un mouvement "lineaire continue" (reine, fou, tour)</p>
+     *
+     * @param cases Le tableau 2D de cases representant l'état de la partie à un instant donné
+     * @param playerEnum la couleur du joueur courant. Etant donné qu'on avance de case en case, on ne peut pas se baser sur la case precedente pour determiner la couleur du joueur courant.
+     * @param initPos La position initiale de notre piece
+     * @param positionsIncrements La liste des increments de position possible pour une piece. Decrit le mouvement de celle-ci
+     * @param possibleCaseList la liste a remplir avec des Case representant des mouvement possibles
      */
-    protected void addAllLinearContinuousMove(Case[][] cases, PlayerEnum playerEnum, Position currPos, Position[] positionsIncrements, List<Case> possibleCaseList) {
+    protected void addAllLinearContinuousMove(Case[][] cases, PlayerEnum playerEnum, Position initPos, Position[] positionsIncrements, List<Case> possibleCaseList) {
 
         Thread[] threads = new Thread[positionsIncrements.length];
 
@@ -116,7 +118,7 @@ public abstract class Piece {
 
             Position curPosIncrement = positionsIncrements[i];
 
-            threads[i] = new Thread(() -> addLinearContinuousMove(cases, playerEnum, currPos, curPosIncrement, possibleCaseList));
+            threads[i] = new Thread(() -> addLinearContinuousMove(cases, playerEnum, initPos, curPosIncrement, possibleCaseList));
             threads[i].start();
 
             try{
