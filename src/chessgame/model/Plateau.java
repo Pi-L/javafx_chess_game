@@ -5,7 +5,10 @@ import chessgame.utils.Constants;
 import chessgame.utils.PlayerEnum;
 import chessgame.utils.Position;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Etat de la partie à un instant t
@@ -17,6 +20,8 @@ public class Plateau {
      */
     private final Case[][] caseArray = new Case[Constants.GRID_SIDE_SIZE][Constants.GRID_SIDE_SIZE];
 
+//    private final List<Case> caseListWhites = new ArrayList<>();
+//    private final List<Case> caseListBlacks = new ArrayList<>();
 
     /**
      * On initialise le tableau une seul fois à la construction
@@ -120,14 +125,86 @@ public class Plateau {
 
         Piece currentPiece = pCase.getPiece();
 
+        PlayerEnum currentPlayerEnum = currentPiece.getPlayerEnum();
+        List<Case> playerCaseList = getPlayerCases(currentPlayerEnum);
+        Case playerKingCase = getPlayerKing(playerCaseList);
+
+        List<Case> opponentCaseList = getPlayerCases(currentPlayerEnum.getOpposit());
+
         if(currentPiece == null) throw new IllegalArgumentException();
 
         Position casePosition = new Position(pCase.getX(), pCase.getY());
 
-        return currentPiece.getPossibleCaseList(caseArray, casePosition);
+        List<Case> possibleMoveList = currentPiece.getPossibleCaseList(caseArray, casePosition);
 
+        return possibleMoveList.stream().filter( aCase -> {
+                            Case futurPlayerKingCase = pCase.getPiece() instanceof King ? aCase : playerKingCase;
+                            return !isKingCheckedIfPieceOnCase(pCase, aCase, futurPlayerKingCase, opponentCaseList);
+                        })
+                        .collect(Collectors.toList());
 
-
+       // return (List) new ArrayList<>();
     }
 
+
+    // ----------------------------
+    // check and mate methodes :
+
+    private boolean isKingCheckedIfPieceOnCase(Case originCase, Case destinationCase, Case playerKingCase, List<Case> opponentCaseList) {
+
+        Piece originPiece = originCase.getPiece();
+        Piece destinationPiece = destinationCase.getPiece();
+
+        destinationCase.setPiece(originPiece);
+        originCase.setPiece(null);
+
+        List<Case> opponentCheckingCaseList = getCheckingPieceCaseList(opponentCaseList, playerKingCase);
+
+        // reset
+        originCase.setPiece(originPiece);
+        destinationCase.setPiece(destinationPiece);
+
+        // return false;
+        return !opponentCheckingCaseList.isEmpty();
+    }
+
+    List<Case> getPlayerCases(PlayerEnum playerEnum) {
+        List<Case> playerCaseList = new ArrayList<>();
+
+        for (int i = 0; i < caseArray.length; i++) {
+            for (int j = 0; j < caseArray[i].length; j++) {
+
+                Case currentCase = caseArray[i][j];
+                if(currentCase.getPiece() == null) continue;
+
+                if(playerEnum.equals(currentCase.getPiece().getPlayerEnum())) playerCaseList.add(currentCase);
+            }
+        }
+
+        return playerCaseList;
+    }
+
+    Case getPlayerKing(List<Case> casePlayerList) {
+
+        Optional<Case> casePlayerKing = casePlayerList.stream().filter(aCase -> aCase.getPiece() instanceof King).findFirst();
+
+        if(casePlayerKing.isEmpty()) return null;
+
+        return casePlayerKing.get();
+    }
+
+    List<Case> getCheckingPieceCaseList(List<Case> playerCaseList, Case oppositKingCase) {
+
+        List<Case> checkingPieceCaseList = new ArrayList<>();
+
+        playerCaseList.forEach(currCase -> {
+            Piece currentPiece = currCase.getPiece();
+
+            List<Case> moveList = currentPiece.getPossibleCaseList(caseArray, new Position(currCase.getX(), currCase.getY()));
+            if(moveList.isEmpty()) return;
+            if(moveList.contains(oppositKingCase)) checkingPieceCaseList.add(currCase);
+        });
+
+        return checkingPieceCaseList;
+    }
 }

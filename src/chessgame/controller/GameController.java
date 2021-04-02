@@ -60,6 +60,9 @@ public class GameController implements Initializable {
     private Label currentPlayer;
 
     @FXML
+    private Label labelIsChecked;
+
+    @FXML
     private Label endGame;
 
     private Pane[][] panes;
@@ -164,14 +167,32 @@ public class GameController implements Initializable {
             }
         }
 
+        // todo: why does it work ??
         currentPlayer.textProperty().setValue(partie.getCurrentPlayer().getName());
 
-        if(GameStatusEnum.ENDED.equals(partie.getGameStatusEnum())) {
+        boolean isGameOver = GameStatusEnum.ENDED.equals(partie.getGameStatusEnum());
+
+        if(isGameOver || partie.isCurrentPlayerKingChecked()) {
+            labelIsChecked.setTextFill(Color.web("#FFFFFF"));
+            labelIsChecked.setFont(new Font(15.0));
+            labelIsChecked.setStyle(Constants.PANE_BG_SELECTED_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
+
+        } else {
+            labelIsChecked.setStyle("");
+        }
+
+        if(partie.isCurrentPlayerKingChecked()) {
+            labelIsChecked.textProperty().setValue("Echec !");
+        }
+
+        if(isGameOver) {
             endGame.setTextFill(Color.web("#FFFFFF"));
             endGame.setFont(new Font(17.0));
             endGame.setStyle(Constants.PANE_BG_SELECTABLE_COLOR_STYLE+Constants.PANE_BORDER_COLOR_STYLE);
             endGame.textProperty().setValue("Partie Terminée \n"
                                             +"Victoire : "+partie.getCurrentPlayer().getName() +" !!");
+
+            labelIsChecked.textProperty().setValue("Echec et Mat !");
         }
     }
 

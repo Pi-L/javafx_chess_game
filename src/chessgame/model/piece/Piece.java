@@ -88,7 +88,7 @@ public abstract class Piece {
         // une piece comme la reine, par exemple, peut partir dans 8 direction differentes. De ce cas on utilisera donc 8 Threads
         // on synchronise l'ajout dans la list pour être sur que cette operation se fait de façon atomique
         // on aurait aussi pu utiliser un autre type qu'une ArrayList
-        synchronized (this) {
+        synchronized (this) { // todo: make multithread again
             possibleCaseList.add(nextCase);
         }
 
@@ -120,6 +120,9 @@ public abstract class Piece {
 
             threads[i] = new Thread(() -> addLinearContinuousMove(cases, playerEnum, initPos, curPosIncrement, possibleCaseList));
             threads[i].start();
+
+            // no multithread version
+            // addLinearContinuousMove(cases, playerEnum, initPos, curPosIncrement, possibleCaseList);
 
             try{
                 // on attend que tous les Threads soient terminées pour continuer

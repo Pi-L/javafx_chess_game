@@ -26,6 +26,8 @@ public class Partie {
     // utile le reset. Permet de ne pas tout parcourir
     private List<Case> caseSelectableList;
 
+    private boolean isCurrentPlayerKingChecked;
+
     /**
      * <p>On ne creait pas une nouvelle partie à l'instanciation</p>
      * <p>Seul le statut de la partie et celui du joueur sont initialisés</p>
@@ -79,6 +81,10 @@ public class Partie {
 
         // if isMovePossible (par elminination)
         makeMove(currentCase);
+
+        if(GameStatusEnum.STARTED.equals(gameStatusEnum)) togglePlayer();
+        setIsCurrentPlayerKingChecked();
+        System.out.println(currentPlayer+ "  " +isCurrentPlayerKingChecked);
     }
 
     /**
@@ -150,12 +156,15 @@ public class Partie {
         return gameStatusEnum;
     }
 
+    public boolean isCurrentPlayerKingChecked() {
+        return isCurrentPlayerKingChecked;
+    }
+
     /**
      * Permet le changement de tour
      */
     private void togglePlayer() {
-        if(currentPlayer.equals(PlayerEnum.BLACK)) currentPlayer = PlayerEnum.WHITE;
-        else currentPlayer = PlayerEnum.BLACK;
+       currentPlayer = currentPlayer.getOpposit();
     }
 
     /**
@@ -210,8 +219,6 @@ public class Partie {
         endCase.setPiece(lastDeplacement.getPiece());
         startCase.setSelected(false);
         startCase.setPiece(null);
-
-        if(GameStatusEnum.STARTED.equals(gameStatusEnum)) togglePlayer();
     }
 
     private boolean isSelectionPossible(Case pCase) {
@@ -258,6 +265,16 @@ public class Partie {
 
         caseSelectableList.forEach(aCase -> aCase.setSelectable(false));
         caseSelectableList.clear();
+    }
+
+    private void setIsCurrentPlayerKingChecked() {
+        List<Case> caseListCurrentPlayer = plateau.getPlayerCases(currentPlayer);
+        List<Case> caseListOppositPlayer = plateau.getPlayerCases(currentPlayer.getOpposit());
+        Case caseCurrentPlayerKing = plateau.getPlayerKing(caseListCurrentPlayer);
+
+        List<Case> caseListOppositPlayerCheckingPieces = plateau.getCheckingPieceCaseList(caseListOppositPlayer, caseCurrentPlayerKing);
+
+        isCurrentPlayerKingChecked = !caseListOppositPlayerCheckingPieces.isEmpty();
     }
 
 }

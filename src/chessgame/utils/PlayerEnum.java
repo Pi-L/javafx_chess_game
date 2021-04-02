@@ -14,4 +14,13 @@ public enum PlayerEnum {
     public String getName() {
         return name;
     }
+
+    public PlayerEnum getOpposit() {
+
+        return switch (this) {
+            case BLACK -> PlayerEnum.WHITE;
+            case WHITE -> PlayerEnum.BLACK;
+            default -> PlayerEnum.NONE;
+        };
+    }
 }
