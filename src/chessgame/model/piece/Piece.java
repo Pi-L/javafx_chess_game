@@ -99,5 +99,34 @@ public abstract class Piece {
         addLinearContinuousMove(cases, playerEnum, newPos, nextPosIncrement, possibleCaseList);
     }
 
+    /**
+     * Methode non recursive appelant la methode recursive addLinearContinuousMove()
+     * @param cases
+     * @param playerEnum
+     * @param currPos
+     * @param positionsIncrements
+     * @param possibleCaseList
+     */
+    protected void addAllLinearContinuousMove(Case[][] cases, PlayerEnum playerEnum, Position currPos, Position[] positionsIncrements, List<Case> possibleCaseList) {
+
+        Thread[] threads = new Thread[positionsIncrements.length];
+
+        // on lance chacune de 8 recursions dans un thread different
+        for (int i = 0; i < positionsIncrements.length; i++) {
+
+            Position curPosIncrement = positionsIncrements[i];
+
+            threads[i] = new Thread(() -> addLinearContinuousMove(cases, playerEnum, currPos, curPosIncrement, possibleCaseList));
+            threads[i].start();
+
+            try{
+                // on attend que tous les Threads soient terminées pour continuer
+                threads[i].join();
+            } catch (InterruptedException e) {
+                System.out.println("getPossibleCaseList -> thread interrupted");
+            }
+        }
+    }
+
 
 }
