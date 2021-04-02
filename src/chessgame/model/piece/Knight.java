@@ -23,12 +23,15 @@ public class Knight extends Piece{
 
         for (int x : possibleModifiers) {
             for (int y : possibleModifiers) {
+
                 if(Math.abs(x) == Math.abs(y)) continue;
 
                 Position movePosition = new Position(position.getX() + x, position.getY() + y);
+
                 if(movePosition.isOutOfBound()) continue;
 
                 Case moveCase = cases[movePosition.getX()][movePosition.getY()];
+
                 if(currentCase.isSamePlayer(moveCase)) continue;
 
                 possibleCaseList.add(moveCase);

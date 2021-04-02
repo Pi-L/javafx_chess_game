@@ -1,9 +1,6 @@
 package chessgame.model;
 
 import chessgame.model.piece.Piece;
-import chessgame.utils.Position;
-
-import java.util.List;
 
 public class Case {
 
@@ -12,7 +9,9 @@ public class Case {
 
     private Piece piece;
 
+    // Definie si une case est selectionnée
     private boolean isSelected;
+    // definie si une case est selectionnable ("set" dans la classe Partie en fonction d'une piece selectionnée et ses capacité de mouvement)
     private boolean isSelectable;
 
     public Case(int coordinateX, int coordinateY) {
