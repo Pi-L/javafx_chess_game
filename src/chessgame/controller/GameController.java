@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -154,8 +155,8 @@ public class GameController implements Initializable {
                 // s'il y a un piece sur la case, on peut recuperer son image
                 try {
                     String imagePath = partie.getPieceImagePath(position);
-
-                    ImageView imageView = new ImageView(imagePath);
+                    String imagePathURI = new File(imagePath).toURI().toString();
+                    ImageView imageView = new ImageView(imagePathURI);
                     imageView.setFitHeight(100);
                     imageView.setFitWidth(100);
 

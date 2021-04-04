@@ -7,13 +7,20 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/gameView.fxml"));
+        URL url = new File("src/chessgame/view/gameView.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Super Duper Chess Game");
-        primaryStage.getIcons().add(new Image("/resources/icons/cavalier_blanc.png"));
+
+        String iconPath = new File("src/resources/icons/cavalier_blanc.png").toURI().toString();
+        primaryStage.getIcons().add(new Image(iconPath));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class Piece {
 
-    protected static final String IMAGE_BASE_PATH = "/resources/pieces/";
+    protected static final String IMAGE_BASE_PATH = "src/resources/pieces/";
 
     protected final PlayerEnum playerEnum;
     protected String imagePath;

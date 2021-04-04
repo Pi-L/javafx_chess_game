@@ -17,10 +17,15 @@ public enum PlayerEnum {
 
     public PlayerEnum getOpposit() {
 
-        return switch (this) {
-            case BLACK -> PlayerEnum.WHITE;
-            case WHITE -> PlayerEnum.BLACK;
-            default -> PlayerEnum.NONE;
-        };
+        switch (this) {
+            case BLACK:
+                return PlayerEnum.WHITE;
+
+            case WHITE:
+                return PlayerEnum.BLACK;
+
+            default:
+                return PlayerEnum.NONE;
+        }
     }
 }
